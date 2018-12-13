@@ -1,7 +1,10 @@
 export { default as theme } from './theme';
+import { Split } from 'mdx-deck/layouts'
+import { Fragment } from 'react'
+import { Appear} from 'mdx-deck'
+
 
 # HUG your next api
-
 worry about the business logic, not the parsing and encoding
 
 #### by Jim Vogel
@@ -29,9 +32,12 @@ JSON focused webserver that is:
 
 ---
 
-# Crazy Simple Code
+# Crazy Simple Syntax
 
-This:
+---
+
+
+this
 
 ```python
 import hug
@@ -43,8 +49,62 @@ def hello():
 
 ---
 
-## testing
+becomes:
 
-## testing
+```javascript
+{
+  404: "The API call you tried to make was not defined...",
+  documentation: {
+    handlers: {
+      /hello: {
+        GET: {
+          examples: [ "http://localhost:8000/hello" ],
+          outputs: {
+            format: "JSON (Javascript Serialized Object Notation)",
+            content_type: "application/json; charset=utf-8"
+          }
+        }
+      }
+    }
+  }
+}
 
-# The end
+```
+
+---
+
+# Lets do something a little more challenging
+
+---
+
+Remember, leave the parsing to the framework and just do the business logic
+
+``````python
+import hug
+
+@hug.get('/echo')
+def echo_text(text):
+    return text
+``````
+
+get
+
+`http://localhost:8000/echo&text=repeat`
+
+
+response
+
+```javascript
+{ "repeat" }
+```
+
+
+---
+
+# Thanks for listening!
+
+- jim.m.vogel@gmail.com
+- @Jim on the dfw pythoneers slack channel
+
+I consult, teach, and love talking about python, dont be shy feel free to hit me up about your project/problem!
+
