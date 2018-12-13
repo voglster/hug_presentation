@@ -73,7 +73,8 @@ becomes:
 
 ---
 
-# Lets do something a little more challenging
+## Lets do something a little more challenging
+#### (like pass in a parameter)
 
 ---
 
@@ -87,9 +88,9 @@ def echo_text(text):
     return text
 ``````
 
-get
+---
 
-`http://localhost:8000/echo&text=repeat`
+get `http://localhost:8000/echo&text=repeat`
 
 
 response
@@ -98,6 +99,87 @@ response
 { "repeat" }
 ```
 
+---
+
+# Forget those annoying things like
+
+- mime types
+- encoding
+- jsonfiy
+- ensuring parameters are there
+- parsing strings to numbers
+- handling data differently if get/post
+
+---
+
+### Parameter is optional?
+hug does what you would expect and makes the api enpoint parameter optional
+
+``````python
+import hug
+
+@hug.get('/echo')
+def echo_text(text = 'Foobar'):
+    return text
+``````
+
+---
+
+### Force something to be a number?
+
+``````python
+import hug
+
+@hug.get('/echo')
+def echo_text(text: hug.types.number):
+    return text
+``````
+get `http://localhost:8000/echo&text=repeat`
+
+hug responds with an error
+
+get `http://localhost:8000/echo&text=1`
+
+hug says ok!
+
+---
+
+### POSTer child
+posting is just a different decorator
+
+``````python
+import hug
+
+@hug.post('/echo')
+def echo_text(text = 'Foobar'):
+    return text
+``````
+
+---
+
+Other goodies:
+
+- versioning
+- directives
+- performance
+- marshmallow schemas
+
+---
+
+### I bet you can't do versions!
+oh yes I can!
+
+``````python
+import hug
+
+@hug.get('/echo', versions=1)
+def echo_text(text: hug.types.number):
+    return text
+``````
+
+`./v1/echo`
+
+#### or pass a list and its valid for multiple versions
 
 ---
 
