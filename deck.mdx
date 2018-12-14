@@ -1,7 +1,7 @@
-export { default as theme } from './theme';
-import { Split } from 'mdx-deck/layouts';
-import { Fragment } from 'react';
-import { Appear } from 'mdx-deck';
+export { default as theme } from "./theme";
+import { Split } from "mdx-deck/layouts";
+import { Fragment } from "react";
+import { Appear } from "mdx-deck";
 
 # HUG
 
@@ -168,7 +168,6 @@ Other goodies:
 - versioning
 - directives
 - performance
-- marshmallow schemas
 
 ---
 
@@ -192,20 +191,53 @@ def echo_text(text: hug.types.number):
 
 # Directives
 
+what if hug doesn't parse what I need?
+
+this is a reason for directives
+
+```python
+@hug.directive()
+def session(context_name='session', request=None, **kwargs):
+    return request and request.context.get(context_name, None) or None
+
+@hug.get()
+def my_endpoint(session: hug.directives.session):
+    session # is here automatically, not passed in at the api level
+```
+
 ---
 
-# Features/Performance
+# Built in Directives
 
+powerful path to the internals of hug but beyond scope of todays talk
+
+some built in directives you can use:
+
+- Timer
+- session
+- user (super useful after authentication)
+- CurrentAPI (use this to call same version api endpoints)
+
+---
+
+# Live Demo
+
+goal
+
+- 3 endpoints
+- store strings @ /save
+- recall all strings @ /data
+- clear the list @ /clear
+
+---
+
+# Features & Performance
+
+- hot reloading
 - single process can handle thousands of connects a second
 - based on falcon
 - faster than most web frameworks
-
----
-
-# Marshmallow Type Checking
-
-- mashmallow objects are "first class citizens"
-- type checking and sane error responses for free
+- supports marshmallow serialization
 
 ---
 
