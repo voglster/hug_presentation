@@ -1,10 +1,12 @@
 export { default as theme } from './theme';
-import { Split } from 'mdx-deck/layouts'
-import { Fragment } from 'react'
-import { Appear} from 'mdx-deck'
+import { Split } from 'mdx-deck/layouts';
+import { Fragment } from 'react';
+import { Appear } from 'mdx-deck';
 
 # HUG
-## the next api you write dont hate it!
+
+## your next api, dont hate it!
+
 worry about the business logic, not the parsing and encoding
 
 #### by Jim Vogel
@@ -16,8 +18,8 @@ worry about the business logic, not the parsing and encoding
 - Jim Vogel
 - jim.m.vogel@gmail.com
 - Professional python programmer for 2 years
-- I learn, I try new stuff constantly
-- This is my first presentation, feedback welcome
+- I love to learn & try new stuff constantly
+- All feedback welcome (first presentation)
 
 ---
 
@@ -25,17 +27,16 @@ worry about the business logic, not the parsing and encoding
 
 JSON focused webserver that is:
 
-- Radically simple
+- Radically Simple
 - Self documenting
 - Clean
-- Performant
+- Very Fast
 
 ---
 
 # Crazy Simple Syntax
 
 ---
-
 
 this
 
@@ -74,29 +75,31 @@ becomes:
 ---
 
 ## Lets do something a little more challenging
+
 #### (like pass in a parameter)
 
 ---
 
 Remember, leave the parsing to the framework and just do the business logic
 
-``````python
+```python
 import hug
 
 @hug.get('/echo')
 def echo_text(text):
-    return text
-``````
+    return {'text': text}
+```
 
 ---
 
-get `http://localhost:8000/echo&text=repeat`
+get:
 
+`./echo&text=repeat`
 
-response
+response:
 
-```javascript
-{ "repeat" }
+```
+{ text: "repeat" }
 ```
 
 ---
@@ -105,7 +108,7 @@ response
 
 - mime types
 - encoding
-- jsonfiy
+- jsonify
 - ensuring parameters are there
 - parsing strings to numbers
 - handling data differently if get/post
@@ -113,27 +116,29 @@ response
 ---
 
 ### Parameter is optional?
+
 hug does what you would expect and makes the api enpoint parameter optional
 
-``````python
+```python
 import hug
 
 @hug.get('/echo')
 def echo_text(text = 'Foobar'):
     return text
-``````
+```
 
 ---
 
 ### Force something to be a number?
 
-``````python
+```python
 import hug
 
 @hug.get('/echo')
 def echo_text(text: hug.types.number):
     return text
-``````
+```
+
 get `http://localhost:8000/echo&text=repeat`
 
 hug responds with an error
@@ -145,15 +150,16 @@ hug says ok!
 ---
 
 ### POSTer child
+
 posting is just a different decorator
 
-``````python
+```python
 import hug
 
 @hug.post('/echo')
 def echo_text(text = 'Foobar'):
     return text
-``````
+```
 
 ---
 
@@ -167,15 +173,16 @@ Other goodies:
 ---
 
 ### I bet you can't do versions!
+
 oh yes I can!
 
-``````python
+```python
 import hug
 
 @hug.get('/echo', versions=1)
 def echo_text(text: hug.types.number):
     return text
-``````
+```
 
 `./v1/echo`
 
@@ -183,10 +190,30 @@ def echo_text(text: hug.types.number):
 
 ---
 
+# Directives
+
+---
+
+# Features/Performance
+
+- single process can handle thousands of connects a second
+- based on falcon
+- faster than most web frameworks
+
+---
+
+# Marshmallow Type Checking
+
+- mashmallow objects are "first class citizens"
+- type checking and sane error responses for free
+
+---
+
 Where can you find more?
 
-http://hug.rest
+documentation @
 
+http://hug.rest
 
 ---
 
@@ -196,9 +223,11 @@ http://hug.rest
 
 # Thanks for listening!
 
+## now go write some apis
+
 - jim.m.vogel@gmail.com
 - @Jim on the dfw pythoneers slack channel
 
-I consult, teach, and love talking about python, dont be shy feel free to hit me up about your project/problem!
+I consult, teach, freelance, and geek out about python, feel free to hit me up about your project/problem!
 
 ##### presentation built with mdx-deck
