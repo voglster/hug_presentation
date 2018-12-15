@@ -167,7 +167,8 @@ Other goodies:
 
 - versioning
 - directives
-- performance
+- cli
+- local
 
 ---
 
@@ -217,6 +218,44 @@ some built in directives you can use:
 - session
 - user (super useful after authentication)
 - CurrentAPI (use this to call same version api endpoints)
+
+---
+
+# Cli
+
+```python
+
+@hug.cli()
+def echo(value):
+    return {'value': value}
+```
+
+print a message about usage
+`hug -f app.py -c help`
+
+call the method from cli
+`hug -f app.py -c echo hello`
+
+---
+
+# Local
+
+building a library?
+
+```python
+
+@hug.local()
+def echo(value: hug.types.number):
+    return {'value': value}
+```
+
+and how to use it:
+
+```python
+from api.py import echo
+echo('foo') # nice error
+echo(1) # yay
+```
 
 ---
 
