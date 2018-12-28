@@ -7,11 +7,21 @@ import { Appear } from 'mdx-deck';
 
 ## your next api, dont hate it!
 
-worry about the business logic, not the parsing and encoding
+the business logic is whats important
 
-##### spend your time adding value not reinventing the wheel
+and where your focus should be
 
 #### by Jim Vogel
+
+---
+
+## spend your time adding value
+
+not:
+
+- ~~parsing and encoding~~
+- ~~boilerplate code~~
+- ~~reinventing the wheel~~
 
 ---
 
@@ -27,20 +37,19 @@ worry about the business logic, not the parsing and encoding
 
 # What is Hug?
 
-JSON focused webserver that is:
+API focused webserver that is:
 
 - Radically Simple
-- Self documenting
+- Self-documenting
 - Clean
 - Very Fast
+- Talks in JSON
 
 ---
 
 # Crazy Simple Syntax
 
----
-
-this
+##### 4 lines for hello world!
 
 ```python
 import hug
@@ -54,6 +63,20 @@ def hello():
 
 becomes:
 
+get: `./hello`
+
+response:
+
+```
+World
+```
+
+---
+
+get: `./`
+
+nets us documentation:
+
 ```javascript
 {
   404: "The API call you tried to make was not defined...",
@@ -65,13 +88,7 @@ becomes:
           outputs: {
             format: "JSON (Javascript Serialized Object Notation)",
             content_type: "application/json; charset=utf-8"
-          }
-        }
-      }
-    }
-  }
-}
-
+ }}}}}}
 ```
 
 ---
@@ -82,31 +99,47 @@ becomes:
 
 ---
 
-Remember, leave the parsing to the framework and just do the business logic
+Framework gets out of the way so you can do your business logic!
 
 ```python
 import hug
 
 @hug.get('/echo')
-def echo_text(text):
+def echo(text):
     return {'text': text}
 ```
 
 ---
 
-get:
-
-`./echo&text=repeat`
+get: `./echo&text=HelloWorld`
 
 response:
 
 ```
-{ text: "repeat" }
+{ text: "HelloWorld" }
 ```
 
 ---
 
-# Forget those annoying things like
+# self-documenting
+
+404 page documents our api
+
+we can even add clickable links in the documentation by adding examples
+
+```python
+import hug
+
+@hug.get('/echo')
+def echo(text, examples="text=repeat"):
+    return {'text': text}
+```
+
+---
+
+# HUGs got you covered
+
+you can forget
 
 - mime types
 - encoding
@@ -117,9 +150,9 @@ response:
 
 ---
 
-### Parameter is optional?
+### Function Parameter is optional?
 
-hug does what you would expect and makes the api enpoint parameter optional
+hug makes the api endpoint parameter optional as well
 
 ```python
 import hug
@@ -141,13 +174,9 @@ def echo_text(text: hug.types.number):
     return text
 ```
 
-get `http://localhost:8000/echo&text=repeat`
+get `./echo&text=repeat` ERROR
 
-hug responds with an error
-
-get `http://localhost:8000/echo&text=1`
-
-hug says ok!
+get `./echo&text=1` OK!
 
 ---
 
@@ -158,10 +187,13 @@ posting is just a different decorator
 ```python
 import hug
 
+@hug.get('/echo')
 @hug.post('/echo')
 def echo_text(text = 'Foobar'):
     return text
 ```
+
+#### _yes, you can chain decorators_
 
 ---
 
@@ -188,25 +220,7 @@ def echo_text(text: hug.types.number):
 
 `./v1/echo`
 
-#### or pass a list and its valid for multiple versions
-
----
-
-# Directives
-
-what if hug doesn't parse what I need?
-
-this is a reason for directives
-
-```python
-@hug.directive()
-def session(context_name='session', request=None, **kwargs):
-    return request and request.context.get(context_name, None) or None
-
-@hug.get()
-def my_endpoint(session: hug.directives.session):
-    session # is here automatically, not passed in at the api level
-```
+#### _or pass a list and its valid for multiple versions_
 
 ---
 
@@ -220,6 +234,26 @@ some built in directives you can use:
 - session
 - user (super useful after authentication)
 - CurrentAPI (use this to call same version api endpoints)
+
+---
+
+# Directives
+
+I need stuff from the webserver not the client
+
+this is a reason for directives
+
+```python
+@hug.directive()
+def session(context_name='session', request=None, **kwargs):
+    return request.context.get(context_name)
+
+@hug.get('/some_endpoint')
+def my_endpoint(session: hug.directives.session):
+    session # is here automatically, not passed in at the api level
+```
+
+#### _session is not part of the endpoint but still passed in_
 
 ---
 
@@ -287,9 +321,21 @@ hug is wsgi compatible which gives you access to all the wsgi hosts
 
 - uWSGI
 - Gunicorn
-- nGinx
+- nginx
 
 they even provide a pre built docker container for your pleasure!
+
+---
+
+### Real world use cases
+
+hug hosts the api that is consumed by:
+
+- your web page (react?)
+- your phone app (java/swift)
+- someone else (no need to scrape!)
+
+separate the data from the presentation
 
 ---
 
@@ -299,9 +345,7 @@ they even provide a pre built docker container for your pleasure!
 
 Hopefully Useful Guide
 
-the projects goal is to help devs create intuitive well written apis
-
-###### found on on last lines of README.md
+its built help devs create intuitive well written apis
 
 ---
 
@@ -320,17 +364,20 @@ http://bit.ly/hug101jim
 
 #### only 4 questions just do it!
 
+#### last slide has the link too
+
 ---
 
 # Thanks for listening!
 
 ## now go write some apis
 
-- jim@vogelcc.com
-- @Jim on the dfw pythoneers slack channel
+Dont be shy!<br/>
+I consult, teach, freelance, and geek out about python.<br/>
+Feel free to hit me up about your project/problem!
 
-I consult, teach, freelance, and geek out about python, feel free to hit me up about your project/problem!
+- jim@vogelcc.com or @Jim on slack
+- survey: http://bit.ly/hug101jim
+- prezzy src: http://bit.ly/jvhug
 
-##### presentation built with mdx-deck if anyone wants to learn more
-
-###### p.s. big thanks to marcel & jack for helping me get up here
+###### _thanks to marcel for listening to me as I prepped_
