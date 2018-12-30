@@ -19,17 +19,19 @@ and where your focus should be
 
 not:
 
-- ~~parsing and encoding~~
-- ~~boilerplate code~~
-- ~~reinventing the wheel~~
+- ~~parsing~~ 
+- ~~encoding~~
+- ~~writing boilerplate~~
+
+don't reinvent the wheel
 
 ---
 
 # About Me
 
-- Jim Vogel
-- jim@vogelcc.com
-- Professional python programmer for 3 years
+- jim@vogelcc.com or @Jim on slack
+- professionally coding for 10+ years
+- python for 3 years
 - I love to learn & try new stuff constantly
 - All feedback welcome (first presentation)
 
@@ -37,19 +39,16 @@ not:
 
 # What is Hug?
 
-API focused webserver that is:
+web framework focused on building APIs
 
 - Radically Simple
 - Self-documenting
-- Clean
 - Very Fast
 - Talks in JSON
 
 ---
 
 # Crazy Simple Syntax
-
-##### 4 lines for hello world!
 
 ```python
 import hug
@@ -61,11 +60,8 @@ def hello():
 
 ---
 
-becomes:
-
+### Example Response
 get: `./hello`
-
-response:
 
 ```
 World
@@ -73,9 +69,8 @@ World
 
 ---
 
+### Free Documentation
 get: `./`
-
-nets us documentation:
 
 ```javascript
 {
@@ -93,13 +88,13 @@ nets us documentation:
 
 ---
 
-## Lets do something a little more challenging
+## Something a little more challenging
 
 #### (like pass in a parameter)
 
 ---
 
-Framework gets out of the way so you can do your business logic!
+The framework gets out of the way 
 
 ```python
 import hug
