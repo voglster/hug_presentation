@@ -1,7 +1,7 @@
-export { default as theme } from './theme';
-import { Split } from 'mdx-deck/layouts';
-import { Fragment } from 'react';
-import { Appear } from 'mdx-deck';
+export { default as theme } from "./theme";
+import { Split } from "mdx-deck/layouts";
+import { Fragment } from "react";
+import { Appear } from "mdx-deck";
 
 # HUG
 
@@ -19,7 +19,7 @@ and where your focus should be
 
 not:
 
-- ~~parsing~~ 
+- ~~parsing~~
 - ~~encoding~~
 - ~~writing boilerplate~~
 
@@ -61,6 +61,7 @@ def hello():
 ---
 
 ### Example Response
+
 get: `./hello`
 
 ```
@@ -70,6 +71,7 @@ World
 ---
 
 ### Free Documentation
+
 get: `./`
 
 ```javascript
@@ -94,7 +96,7 @@ get: `./`
 
 ---
 
-The framework gets out of the way 
+The framework gets out of the way
 
 ```python
 import hug
@@ -125,8 +127,8 @@ we can even add clickable links in the documentation by adding examples
 ```python
 import hug
 
-@hug.get('/echo')
-def echo(text, examples="text=repeat"):
+@hug.get('/echo', examples="text=repeat")
+def echo(text):
     return {'text': text}
 ```
 
@@ -165,13 +167,13 @@ def echo_text(text = 'Foobar'):
 import hug
 
 @hug.get('/echo')
-def echo_text(text: hug.types.number):
-    return text
+def echo_text(a_number: hug.types.number):
+    return a_number
 ```
 
-get `./echo&text=repeat` ERROR
+get `./echo&a_number=repeat` ERROR
 
-get `./echo&text=1` OK!
+get `./echo&a_number=1` OK!
 
 ---
 
@@ -192,15 +194,6 @@ def echo_text(text = 'Foobar'):
 
 ---
 
-Other goodies:
-
-- versioning
-- directives
-- cli
-- local
-
----
-
 ### I bet you can't do versions!
 
 oh yes I can!
@@ -209,7 +202,7 @@ oh yes I can!
 import hug
 
 @hug.get('/echo', versions=1)
-def echo_text(text: hug.types.number):
+def echo(text):
     return text
 ```
 
@@ -295,7 +288,6 @@ echo(1) # yay
 - hot reloading
 - single process can handle thousands of connects a second
 - based on falcon
-- faster than most web frameworks
 - supports marshmallow serialization
 
 ---
@@ -354,25 +346,17 @@ http://hug.rest
 
 # Q & A
 
-survey:
-http://bit.ly/hug101jim
-
-#### only 4 questions just do it!
-
-#### last slide has the link too
-
 ---
 
 # Thanks for listening!
 
 ## now go write some apis
 
-Dont be shy!<br/>
+- survey: http://bit.ly/hug101jim
+- source code: http://bit.ly/jvhug
+- jim@vogelcc.com or @Jim on slack
+
 I consult, teach, freelance, and geek out about python.<br/>
 Feel free to hit me up about your project/problem!
-
-- jim@vogelcc.com or @Jim on slack
-- survey: http://bit.ly/hug101jim
-- prezzy src: http://bit.ly/jvhug
 
 ###### _thanks to marcel for listening to me as I prepped_

@@ -1,16 +1,17 @@
 import hug
 
-data = []
+list_of_strings = []
 
 @hug.get('/save', examples='text_to_save=testing123')
 def save(text_to_save):
-    data.append(text_to_save)
+    list_of_strings.append(text_to_save)
     return True
 
+
 @hug.get('/data')
-def get_data():
-    return data
+def data():
+    return list_of_strings
 
 @hug.get('/clear')
-def get_data():
-    data.clear()
+def clear():
+    list_of_strings.clear()
